@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+        <title>자기소개페이지</title>
+    
+        <style>
+          @import url("https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap");
+    
+          * {
+            font-family: "italic", cursive;
+          }
+    
+          body {
+            background: linear-gradient(wheat, white);
+    
+            background-image: url("https://www.myprt.online/upload/lasredfire20004.jpg");
+    
+            background-repeat: no-repeat;
+    
+            background-size: cover;
+          }
+    
+
+    
+          .head_nav {
+            padding: 30px;
+    
+            display: flex;
+    
+            flex-direction: row;
+    
+            align-items: center;
+    
+            justify-content: center;
+    
+            text-decoration-line: none;
+          }
+    
+          .time {
+            font-size: 80px;
+    
+            font-weight: bold;
+    
+            color: rgb(70, 45, 45);
+          }
+    
+          .greeting {
+            font-size: 50px;
+    
+            display: flex;
+    
+            flex-direction: column;
+    
+            align-items: center;
+    
+            justify-content: center;
+    
+            color: yellowgreen;
+          }
+    
+          .todo {
+            font-size: 30px;
+    
+            color: white;
+          }
+    
+          .author {
+            font-size: 25px;
+    
+            font-style: italic;
+
+            color: white;
+          }
+    
+          .main {
+            width: 100vw;
+    
+            height: 80vh;
+    
+            display: flex;
+    
+            flex-direction: column;
+    
+            align-items: center;
+    
+            justify-content: center;
+
+            font-style: italic;
+
+            color: white;
+
+          }
+    
+          .quoto {
+            width: 100vw;
+    
+            height: 20vh;
+    
+            word-break: keep-all;
+    
+            display: flex;
+    
+            flex-direction: column;
+    
+            align-items: center;
+    
+            justify-content: center;
+
+            font-style: italic;
+
+            color: white;
+
+          }
+    
+          .B1 {
+            max-width: 500px;
+    
+            width: 70px;
+    
+            height: 70px;
+    
+            background-position: center;
+    
+            background-size: cover;
+    
+            border-radius: 23px;
+    
+            border: solid, 7px, white;
+          }
+    
+          .B2 {
+            max-width: 500px;
+    
+            width: 70px;
+    
+            height: 70px;
+    
+            background-position: center;
+    
+            background-size: cover;
+    
+            border-radius: 23px;
+    
+            border: solid, white;
+          }
+    
+          .B3 {
+            max-width: 500px;
+    
+            width: 70px;
+    
+            height: 70px;
+    
+            background-position: center;
+    
+            background-size: 100%;
+    
+            border-radius: 100px;
+    
+            border: solid, white;
+          }
+    
+        
+        </style>
+        <script>
+          $(document).ready(function () {
+            renderCurrentTemp();
+            renderCurrentTime();
+            renderQuote();
+          });
+    
+          function renderCurrentTemp() {
+            let url = `http://spartacodingclub.shop/sparta_api/weather/seoul`;
+    
+            // 방법은 아래에 하신 방법이랑 같은 방법으로 진행했습니다.
+            fetch(url)
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+                // 요 아래 부분이 ajax 부분이에요. $() 이 부분입니다.
+                $("#temp").text(data["temp"]);
+              })
+              // 이렇게 catch를 쓰시면 에러를 찾아서 무슨에러인지 체크 가능합니다.
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+    
+          function renderCurrentTime() {
+            let url = `https://worldtimeapi.org/api/timezone/Asia/Seoul`;
+    
+            fetch(url)
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+                let datetime = data["datetime"].substr(11, 5);
+                $("#time").text(datetime);
+              });
+          }
+    
+          function renderQuote() {
+            let url = `https://api.quotable.io/random`;
+    
+            fetch(url)
+              .then((res) => res.json())
+              .then((data) => {
+                let content = `" ${data["content"]} "`;
+    
+                let author = `- ${data["author"]} -`;
+    
+                $("#content").text(content);
+    
+                $("#author").text(author);
+              });
+          }
+        </script>
+      </head>
+    
+      <body>
+ 
+    
+        <div class="main">
+          <div id="time" class="time">12:00</div>
+    
+          <p>현재기온: <span id="temp">00.0</span>도</p>
+    
+          <div class="greeting">Hello World!</div>
+    
+          <div class="todo">처음 시작하는 마음으로~~</div>
+        </div>
+    
+        <div class="find-btn">
+
+        </div>
+    
+        <div class="quoto">
+          <div id="author" class="author">- 명언의 저자 -</div>
+    
+          <div id="content" class="content">" 명언의 내용 "</div>
+        </div>
+      </body>
+    </html>
